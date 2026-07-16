@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>社員名簿一覧</h1>
+<h2><a href="/portal/new/">＋新規社員登録</a></h2>
+<table border="1">
+    <tr><th>氏名</th><th>部署</th><th>役職</th><th>入社日</th><th>詳細</th><th>編集</th><th>削除</th></tr>
+    {% for m in members %}
+    <tr>
+        <td>
+            {% if m.role == '社長' %} 👑 <strong>{{ m.name }}</strong> {% else %} {{ m.name }} {% endif %}
+        </td>
+        <td>{{ m.dept }}</td>
+        <td>{{ m.role }}</td>
+        <td>{{ m.joined_date }}</td>
+        <td><a href="{% url 'staff_detail' m.id %}">詳細を見る</a></td>
+        <td><a href="{% url 'employee_update' m.id %}">編集</a></td>
+        <td><a href="{% url 'employee_delete' m.id %}" style="color: red;">削除</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

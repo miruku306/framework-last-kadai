@@ -1,0 +1,156 @@
+{% extends "video_rental/base.html" %}
+
+{% block content %}
+
+<div class="row mb-4">
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>📀 総作品数</h5>
+                <h2>{{ total_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>📦 貸出中</h5>
+                <h2>{{ rented_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>🚫 在庫切れ</h5>
+                <h2>{{ out_of_stock_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header">
+        📀 ビデオ一覧
+    </div>
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between mb-3">
+
+            <a href="{% url 'video_rental:video_create' %}"
+                class="btn btn-success">
+            ＋ 新規登録
+            </a>
+
+        </div>
+
+        <table class="table table-striped table-hover">
+
+            <thead>
+
+            <tr>
+                <th>画像</th>
+                <th>商品コード</th>
+                <th>タイトル</th>
+                <th>ジャンル</th>
+                <th class="text-center">在庫</th>
+                <th class="text-center">状態</th>
+                <th class="text-center">操作</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+        {% for video in videos %}
+
+<tr>
+
+    <td>
+
+        {% if video.image %}
+            <img src="{{ video.image.url }}"
+                class="img-thumbnail"
+                width="70"
+                alt="{{ video.title }}">
+        {% else %}
+            画像なし
+        {% endif %}
+
+    </td>
+
+    <td>{{ video.product_code }}</td>
+
+    <td>{{ video.title }}</td>
+
+    <td>{{ video.genre }}</td>
+
+    <td class="text-center">
+        {{ video.available_stock }} / {{ video.stock }}
+    </td>
+
+    <td class="text-center">
+    {% if video.stock_status == "在庫切れ" %}
+        <span class="badge bg-danger">
+            {{ video.stock_status }}
+        </span>
+
+    {% elif video.stock_status == "残りわずか" %}
+        <span class="badge bg-warning text-dark">
+            {{ video.stock_status }}
+        </span>
+
+    {% else %}
+        <span class="badge bg-success">
+            {{ video.stock_status }}
+        </span>
+    {% endif %}
+</td>
+
+
+<td class="text-center">
+
+    <a href="{% url 'video_rental:video_update' video.pk %}"
+        class="btn btn-sm btn-primary">
+        ✏ 編集
+    </a>
+
+    <a href="{% url 'video_rental:video_delete' video.pk %}"
+        class="btn btn-sm btn-danger">
+        🗑 削除
+    </a>
+
+</td>
+
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="6" class="text-center">
+
+        ビデオが登録されていません。
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

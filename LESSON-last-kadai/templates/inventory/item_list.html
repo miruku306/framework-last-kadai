@@ -1,0 +1,24 @@
+{% extends 'base.html' %} <!-- base.htmlを土台にする -->
+
+{% block content %}
+<h2>{{ message }}</h2> <!-- 変数の表示 -->
+
+<table border="1">
+    <tr>
+        <th>商品名</th><th>価格</th><th>在庫</th>
+    </tr>
+    {% for item in items %} <!-- ループ処理 -->
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.price }}円</td>
+        <td>
+            {% if item.stock == 0 %} <!-- 条件分岐 -->
+                <span style="color:red;">在庫なし</span>
+            {% else %}
+                {{ item.stock }}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

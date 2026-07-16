@@ -1,0 +1,53 @@
+{% extends "video_rental/base.html" %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+
+    <div class="card-header">
+
+{% if is_edit %}
+
+📀 ビデオ編集
+
+{% else %}
+
+📀 ビデオ登録
+
+{% endif %}
+
+</div>
+
+    <div class="card-body">
+
+        <form method="post"
+            enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button class="btn btn-primary">
+
+            {% if is_edit %}
+            更新
+            {% else %}
+            登録
+            {% endif %}
+
+</button>
+
+            <a href="{% url 'video_rental:video_list' %}"
+                class="btn btn-secondary">
+
+                戻る
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+    {% block content %}
+    <h1>社員詳細情報</h1>
+    {% if user %}
+        <ul>
+            <li>氏名：{{ user.name }}</li>
+            <li>部署：{{ user.dept }}</li>
+            <li>役職：{{ user.role }}</li>
+            <li>メール：{{ user.email }}</li>
+            <li>入社日：{{ user.joined_date }}</li>
+        </ul>
+    {% else %}
+        <p>社員が存在しません。</p>
+    {% endif %}
+    <a href="{% url 'staff_list' %}">一覧に戻る</a>
+    {% endblock %}

@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=django_db
+      - POSTGRES_USER=django_user
+      - POSTGRES_PASSWORD=django_pass
+
+  web:
+    build: .
+    container_name: lesson-django-last-kadai
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>社員管理システム</title>
+</head>
+<body>
+    <nav>
+        <strong>社員管理APP</strong> |
+        <a href="{% url 'staff_list' %}">社員名簿</a> |
+        <a href="/inventory/items/">在庫管理</a>
+        <a href="/portal/new/">＋新規社員登録</a>
+    </nav>
+    <hr>
+    {% block content %}
+    <!-- ここに各ページの中身が入る -->
+    {% endblock %}
+</body>
+</html>

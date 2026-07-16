@@ -1,0 +1,12 @@
+# Django本体（★今回追加）
+Django==6.0.5
+
+# 整形ツール
+black==26.5.1
+
+# 型チェックツール
+mypy==2.1.0
+
+django-stubs==6.0.5 # 追加
+
+psycopg2-binary==2.9.12

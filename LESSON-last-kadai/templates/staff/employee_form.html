@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>社員の新規登録</h1>
+
+<form method="POST">
+    {% csrf_token %} <!-- セキュリティのため -->
+    {{ form.as_p }} <!-- フォームをPタグ形式で自動表示 -->
+    <button type="submit">登録する</button>
+</form>
+
+<hr>
+<a href="{% url 'staff_list' %}">キャンセル（一覧に戻る）</a>
+{% endblock %}
